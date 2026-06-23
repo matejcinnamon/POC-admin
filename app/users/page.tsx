@@ -55,6 +55,8 @@ export default function UsersPage() {
     }
   };
 
+  const SUPERADMIN_EMAIL = process.env.NEXT_PUBLIC_SUPERADMIN_EMAIL || 'cinnamon.development@cinnamon.agency';
+
   const formatDate = (date: string) => new Date(date).toLocaleString();
 
   return (
@@ -108,12 +110,14 @@ export default function UsersPage() {
                         >
                           View
                         </Link>
-                        <button
-                          onClick={() => toggleAdmin(user)}
-                          className="text-sm text-indigo-400 hover:text-indigo-300 font-medium"
-                        >
-                          {user.isAdmin ? 'Revoke admin' : 'Make admin'}
-                        </button>
+                        {!(user.isAdmin && user.email === SUPERADMIN_EMAIL) && (
+                          <button
+                            onClick={() => toggleAdmin(user)}
+                            className="text-sm text-indigo-400 hover:text-indigo-300 font-medium"
+                          >
+                            {user.isAdmin ? 'Revoke admin' : 'Make admin'}
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
