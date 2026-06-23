@@ -70,6 +70,16 @@ export const getUserInvoices = async (userId: string, page = 1, limit = 20) => {
   return data;
 };
 
+export const getUserActivity = async (userId: string, page = 1, limit = 25) => {
+  const { data } = await api.get(`/admin/users/${userId}/activity`, { params: { page, limit } });
+  return data;
+};
+
+export const getUserMetrics = async (userId: string) => {
+  const { data } = await api.get(`/admin/users/${userId}/metrics`);
+  return data;
+};
+
 export const getAllInvoices = async (page = 1, limit = 20) => {
   const { data } = await api.get('/admin/invoices', { params: { page, limit } });
   return data;

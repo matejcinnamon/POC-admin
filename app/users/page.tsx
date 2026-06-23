@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Cookies from 'js-cookie';
 import AdminNav from '../components/AdminNav';
 import { getUsers, setUserAdmin } from '../lib/api';
@@ -80,7 +81,14 @@ export default function UsersPage() {
                 <tbody className="divide-y divide-slate-800">
                   {users.map((user) => (
                     <tr key={user._id} className="hover:bg-slate-800/50">
-                      <td className="px-6 py-4 text-white">{user.email}</td>
+                      <td className="px-6 py-4">
+                        <Link
+                          href={`/users/${user._id}`}
+                          className="text-white hover:text-indigo-300 transition font-medium"
+                        >
+                          {user.email}
+                        </Link>
+                      </td>
                       <td className="px-6 py-4">
                         {user.isAdmin ? (
                           <span className="px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-medium">
@@ -93,7 +101,13 @@ export default function UsersPage() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-slate-400">{formatDate(user.createdAt)}</td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 flex items-center gap-4">
+                        <Link
+                          href={`/users/${user._id}`}
+                          className="text-sm text-slate-400 hover:text-white transition"
+                        >
+                          View
+                        </Link>
                         <button
                           onClick={() => toggleAdmin(user)}
                           className="text-sm text-indigo-400 hover:text-indigo-300 font-medium"
